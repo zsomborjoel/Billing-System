@@ -67,24 +67,24 @@
                           <Component id="nationalityField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                           <Component id="genderField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                           <Component id="idTypeField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="roomTypeComboBox" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
+                          <Component id="roomNameComboBox" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="firstNameField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   <Component id="surNameField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   <Component id="addressField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   <Component id="postCodeField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                                  <Component id="mobileNumberField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
+                                  <Component id="mobileField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   <Component id="emailField" linkSize="3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="mealTypeCombobox" max="32767" attributes="0"/>
+                                      <Component id="mealNameCombobox" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="addMealButton" linkSize="2" max="32767" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jButton3" linkSize="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="removeMealButton" linkSize="2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel11" linkSize="4" min="-2" max="-2" attributes="0"/>
@@ -93,7 +93,7 @@
                               </Group>
                               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="priceField" max="32767" attributes="0"/>
+                                  <Component id="mealPriceField" max="32767" attributes="0"/>
                                   <Component id="totalCostField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="subTotalField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="taxPaidField" alignment="1" min="-2" pref="165" max="-2" attributes="0"/>
@@ -109,7 +109,7 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" pref="437" max="32767" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="78" max="-2" attributes="0"/>
+                  <Component id="printBill" min="-2" pref="78" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -123,7 +123,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="printBill" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -151,7 +151,7 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="mobileNumberField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mobileField" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -162,13 +162,13 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="mealTypeCombobox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="priceField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mealNameCombobox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mealPriceField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="addMealButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="removeMealButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -219,7 +219,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="roomTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="roomNameComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -247,32 +247,38 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="printBill">
       <Properties>
         <Property name="text" type="java.lang.String" value="Print"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printBillActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="priceField">
+    <Component class="javax.swing.JTextField" name="mealPriceField">
     </Component>
     <Component class="javax.swing.JButton" name="addMealButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMealButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="removeMealButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Remove"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="mealTypeCombobox">
+    <Component class="javax.swing.JComboBox" name="mealNameCombobox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mealNameComboboxActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="firstNameField">
     </Component>
@@ -286,7 +292,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="postCodeField">
     </Component>
-    <Component class="javax.swing.JTextField" name="mobileNumberField">
+    <Component class="javax.swing.JTextField" name="mobileField">
     </Component>
     <Component class="javax.swing.JTextField" name="emailField">
     </Component>
@@ -357,7 +363,7 @@
         <Property name="text" type="java.lang.String" value="Room Type"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="roomTypeComboBox">
+    <Component class="javax.swing.JComboBox" name="roomNameComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
@@ -365,9 +371,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="taxPaidField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="taxPaidFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="subTotalField">
     </Component>

@@ -1,15 +1,19 @@
 package BillingSystem;
 
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.io.FileReader;
 import java.util.Properties;
 
 public class DbUtils {
     
-    Connection conn;
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
+    public Connection conn;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
 
     public DbUtils() {
         initConnection();
@@ -38,7 +42,7 @@ public class DbUtils {
     public ResultSet execute(String sql) {
         try {
             preparedStatement = conn.prepareStatement(sql);
-            if(sql.startsWith("insert")) {
+            if(!sql.toLowerCase().startsWith("select")) {
                 preparedStatement.executeUpdate();
             } else {  
                 resultSet = preparedStatement.executeQuery();

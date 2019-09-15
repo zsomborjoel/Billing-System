@@ -1,33 +1,64 @@
 package BillingSystem;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import javax.swing.JComboBox;
 
 public class BillingSystemUserInterface extends javax.swing.JFrame {
+    private int mealPrice;
+    private int subTotal;
+    private int taxPaid;
+    private int totalCost;
+    private String firstName;
+    private String surName;
+    private String address;
+    private String postCode;
+    private String mobile;
+    private String email;
+    private String nationality;
+    private String dateOfBirth;
+    private String idType;
+    private String gender;
+    private String checkInDate;
+    private String checkOutDate;
+    private String roomName;
+    private String mealName;
+    private String sqlStatement;
+    
 
-    public BillingSystemUserInterface() {
+    private BillingSystemUserInterface() {
         initComponents();
         initComboBoxes();
     }
     
-    private void initComboBoxes() {
-        DbUtils dbUtils = new DbUtils();
-        ResultSet resultSet;        
-        String roomTypesSql = "select roomname from hotel.room";
-        String mealTypesSql = "select mealname from hotel.meal";
-        try {
-            resultSet = dbUtils.execute(roomTypesSql);        
-            while(resultSet.next()){
-                roomTypeComboBox.addItem(resultSet.getString(1));                
-            }
-            resultSet = dbUtils.execute(mealTypesSql);
-            while(resultSet.next()){
-                mealTypeCombobox.addItem(resultSet.getString(1));                
-            }
-        } catch (SQLException e) {
-            
-        }
+    private void initComboBoxes() {       
+        String[] sqlStatements = {"select roomname from hotel.room", "select mealname from hotel.meal"};         
+        itemAddComboBox(sqlStatements[0], roomNameComboBox);
+        itemAddComboBox(sqlStatements[1], mealNameCombobox);   
     }
     
+    private void itemAddComboBox(String sql, JComboBox comboBox) {
+        DbUtils dbUtils = new DbUtils();
+        ResultSet initResultSet;
+        initResultSet = dbUtils.execute(sql);  
+        try {
+            while(initResultSet.next()){
+                comboBox.addItem(initResultSet.getString(1));                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }    
+    }
+    
+    private String dateFormatter(String date) {
+        String newDateFormat = date.replace(".", "-").substring(0, 10);
+        return newDateFormat;
+    }
+    
+    private ResultSet executeSql(String sql) {
+        DbUtils dbUtils = new DbUtils();
+        return dbUtils.execute(sql);
+    }
+        
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,18 +67,18 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        priceField = new javax.swing.JTextField();
+        printBill = new javax.swing.JButton();
+        mealPriceField = new javax.swing.JTextField();
         addMealButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        mealTypeCombobox = new javax.swing.JComboBox();
+        removeMealButton = new javax.swing.JButton();
+        mealNameCombobox = new javax.swing.JComboBox();
         firstNameField = new javax.swing.JTextField();
         genderField = new javax.swing.JTextField();
         idTypeField = new javax.swing.JTextField();
         surNameField = new javax.swing.JTextField();
         addressField = new javax.swing.JTextField();
         postCodeField = new javax.swing.JTextField();
-        mobileNumberField = new javax.swing.JTextField();
+        mobileField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
         nationalityField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -63,7 +94,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        roomTypeComboBox = new javax.swing.JComboBox();
+        roomNameComboBox = new javax.swing.JComboBox();
         taxPaidField = new javax.swing.JTextField();
         subTotalField = new javax.swing.JTextField();
         totalCostField = new javax.swing.JTextField();
@@ -87,16 +118,27 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton1.setText("Print");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        printBill.setText("Print");
+        printBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                printBillActionPerformed(evt);
             }
         });
 
         addMealButton.setText("Add");
+        addMealButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addMealButtonActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Remove");
+        removeMealButton.setText("Remove");
+
+        mealNameCombobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mealNameComboboxActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Firstname");
 
@@ -123,12 +165,6 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         jLabel5.setText("Gender");
 
         jLabel15.setText("Room Type");
-
-        taxPaidField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                taxPaidFieldActionPerformed(evt);
-            }
-        });
 
         jLabel11.setText("Tax Paid");
 
@@ -173,29 +209,29 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                             .addComponent(nationalityField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(roomTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(roomNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(surNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(mobileNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mobileField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(mealTypeCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(mealNameCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(addMealButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton3)))
+                                            .addComponent(removeMealButton)))
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel16)
                                     .addComponent(jLabel17))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(priceField)
+                                    .addComponent(mealPriceField)
                                     .addComponent(totalCostField)
                                     .addComponent(subTotalField)
                                     .addComponent(taxPaidField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -206,13 +242,13 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(printBill, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addMealButton, jButton3});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addMealButton, removeMealButton});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addressField, emailField, firstNameField, genderField, idTypeField, jLabel1, jLabel10, jLabel12, jLabel13, jLabel14, jLabel15, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel8, jLabel9, mobileNumberField, nationalityField, postCodeField, roomTypeComboBox, surNameField});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addressField, emailField, firstNameField, genderField, idTypeField, jLabel1, jLabel10, jLabel12, jLabel13, jLabel14, jLabel15, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel8, jLabel9, mobileField, nationalityField, postCodeField, roomNameComboBox, surNameField});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel11, jLabel16, jLabel17});
 
@@ -224,7 +260,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(printBill)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -247,7 +283,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(mobileNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mobileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel12))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,12 +291,12 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                                     .addComponent(jLabel13)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(mealTypeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(mealNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mealPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(13, 13, 13)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(addMealButton)
-                                    .addComponent(jButton3))
+                                    .addComponent(removeMealButton))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel11)
@@ -299,7 +335,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(roomTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(roomNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addPersonButton)
@@ -309,25 +345,85 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void printBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBillActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_printBillActionPerformed
 
     private void addPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonButtonActionPerformed
-        // TODO add your handling code here:
+        firstName       = firstNameField.getText();
+        surName         = surNameField.getText();
+        address         = addressField.getText();
+        postCode        = postCodeField.getText();
+        mobile          = mobileField.getText();
+        email           = emailField.getText();
+        nationality     = nationalityField.getText();
+        dateOfBirth     = dateFormatter(dateOfBirthChooser.getText());
+        idType          = idTypeField.getText();
+        gender          = genderField.getText();
+        checkInDate     = dateFormatter(checkInDateChooser.getText());
+        checkOutDate    = dateFormatter(checkOutDateChooser.getText());
+        roomName        = roomNameComboBox.getSelectedItem().toString();
+        
+        sqlStatement = "insert into hotel.person("
+                + "firstname, surname, address, postcode, mobile, email, nationality, birthdate, idtype, gender, checkin, checkout, roomid"
+                + ") values('"
+                + firstName + "', '" 
+                + surName + "', '" 
+                + address + "', '"
+                + postCode + "', '"
+                + mobile + "', '"
+                + email + "', '"
+                + nationality + "', '"
+                + dateOfBirth + "', '"
+                + idType + "', '"
+                + gender + "', '"
+                + checkInDate + "', '"
+                + checkOutDate + "', ("
+                + "select roomid from hotel.room where roomname = '" 
+                + roomName 
+                + "'));";
+        executeSql(sqlStatement);
     }//GEN-LAST:event_addPersonButtonActionPerformed
 
-    private void taxPaidFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taxPaidFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_taxPaidFieldActionPerformed
+    private void addMealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMealButtonActionPerformed
+        mealName    = mealNameCombobox.getSelectedItem().toString();       
+        mealPrice   = Integer.parseInt(mealPriceField.getText());
+        
+        subTotal    = mealPrice;
+        taxPaid     = (subTotal / 100) * 10;
+        totalCost   = totalCost + subTotal + taxPaid;
+        
+        taxPaidField.setText(String.valueOf(taxPaid));
+        subTotalField.setText(String.valueOf(subTotal));
+        totalCostField.setText(String.valueOf(totalCost));
+        
+        sqlStatement = "insert into hotel.personmeal("
+                + "personid, mealid"
+                + ") values (("
+                + "select personid from hotel.person where firstname || surname = " 
+                + firstName.concat(surName) 
+                + "), ("
+                + "select mealid from hotel.meail where mealname = " 
+                + mealName 
+                + "));";
+        executeSql(sqlStatement);
+    }//GEN-LAST:event_addMealButtonActionPerformed
 
+    private void mealNameComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mealNameComboboxActionPerformed
+        ResultSet mealTypeResultSet;
+        String currentMeal  = mealNameCombobox.getSelectedItem().toString();
+        sqlStatement        = "select price from hotel.meal where mealname = '" + currentMeal + "';";
+        mealTypeResultSet   = executeSql(sqlStatement);
+        try { 
+            while(mealTypeResultSet.next()) {
+                mealPriceField.setText(mealTypeResultSet.getString(1));
+            }
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_mealNameComboboxActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -344,9 +440,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BillingSystemUserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BillingSystemUserInterface().setVisible(true);
@@ -365,8 +459,6 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     private javax.swing.JTextField firstNameField;
     private javax.swing.JTextField genderField;
     private javax.swing.JTextField idTypeField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JLabel jLabel1;
@@ -387,12 +479,14 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JComboBox mealTypeCombobox;
-    private javax.swing.JTextField mobileNumberField;
+    private javax.swing.JComboBox mealNameCombobox;
+    private javax.swing.JTextField mealPriceField;
+    private javax.swing.JTextField mobileField;
     private javax.swing.JTextField nationalityField;
     private javax.swing.JTextField postCodeField;
-    private javax.swing.JTextField priceField;
-    private javax.swing.JComboBox roomTypeComboBox;
+    private javax.swing.JButton printBill;
+    private javax.swing.JButton removeMealButton;
+    private javax.swing.JComboBox roomNameComboBox;
     private javax.swing.JTextField subTotalField;
     private javax.swing.JTextField surNameField;
     private javax.swing.JTextField taxPaidField;
