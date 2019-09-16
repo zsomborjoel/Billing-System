@@ -23,23 +23,27 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     private String roomName;
     private String mealName;
     private String sqlStatement;
-    
 
     private BillingSystemUserInterface() {
         initComponents();
-        initComboBoxes();
+        initComboBoxesData();
     }
     
-    private void initComboBoxes() {       
-        String[] sqlStatements = {"select roomname from hotel.room", "select mealname from hotel.meal"};         
+    private void initComboBoxesData() {   
+        /**
+         * Call sql statements to initialize database values into ComboBoxes
+         */
+        String[] sqlStatements = {"select roomname from hotel.room order by roomname asc", "select mealname from hotel.meal order by mealname asc"};         
         itemAddComboBox(sqlStatements[0], roomNameComboBox);
         itemAddComboBox(sqlStatements[1], mealNameCombobox);   
     }
     
     private void itemAddComboBox(String sql, JComboBox comboBox) {
-        DbUtils dbUtils = new DbUtils();
+        /**
+         * Add database values into ComboBoxes 
+         */
         ResultSet initResultSet;
-        initResultSet = dbUtils.execute(sql);  
+        initResultSet = executeSql(sql);  
         try {
             while(initResultSet.next()){
                 comboBox.addItem(initResultSet.getString(1));                
@@ -50,11 +54,17 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     }
     
     private String dateFormatter(String date) {
+        /**
+         * Format DataComboBOx output to sql compatible date 
+        */
         String newDateFormat = date.replace(".", "-").substring(0, 10);
         return newDateFormat;
     }
     
     private ResultSet executeSql(String sql) {
+        /**
+         * Reduce unecessary object creation to execute Sql codes
+         */
         DbUtils dbUtils = new DbUtils();
         return dbUtils.execute(sql);
     }
@@ -66,7 +76,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        printBillArea = new javax.swing.JTextArea();
         printBill = new javax.swing.JButton();
         mealPriceField = new javax.swing.JTextField();
         addMealButton = new javax.swing.JButton();
@@ -81,26 +91,26 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         mobileField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
         nationalityField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        firstNameLabel = new javax.swing.JLabel();
+        nationalityLabel = new javax.swing.JLabel();
+        idTypeLabel = new javax.swing.JLabel();
+        dateOfBirthLabel = new javax.swing.JLabel();
+        checkOutDateLabel = new javax.swing.JLabel();
+        checkInDateLabel = new javax.swing.JLabel();
+        addressLabel = new javax.swing.JLabel();
+        mobileLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        surNameLabel = new javax.swing.JLabel();
+        postCodeLabel = new javax.swing.JLabel();
+        genderLabel = new javax.swing.JLabel();
+        roomTypeLabel = new javax.swing.JLabel();
         roomNameComboBox = new javax.swing.JComboBox();
         taxPaidField = new javax.swing.JTextField();
         subTotalField = new javax.swing.JTextField();
         totalCostField = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        taxPaidLabel = new javax.swing.JLabel();
+        subTotalLabel = new javax.swing.JLabel();
+        totalCostLabel = new javax.swing.JLabel();
         dateOfBirthChooser = new datechooser.beans.DateChooserCombo();
         checkInDateChooser = new datechooser.beans.DateChooserCombo();
         checkOutDateChooser = new datechooser.beans.DateChooserCombo();
@@ -114,9 +124,9 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        printBillArea.setColumns(20);
+        printBillArea.setRows(5);
+        jScrollPane1.setViewportView(printBillArea);
 
         printBill.setText("Print");
         printBill.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +143,11 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         });
 
         removeMealButton.setText("Remove");
+        removeMealButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeMealButtonActionPerformed(evt);
+            }
+        });
 
         mealNameCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,37 +155,37 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Firstname");
+        firstNameLabel.setText("Firstname");
 
-        jLabel2.setText("Nationality");
+        nationalityLabel.setText("Nationality");
 
-        jLabel3.setText("ID Type");
+        idTypeLabel.setText("ID Type");
 
-        jLabel4.setText("Date of Birth");
+        dateOfBirthLabel.setText("Date of Birth");
 
-        jLabel6.setText("Check Out Date");
+        checkOutDateLabel.setText("Check Out Date");
 
-        jLabel8.setText("Check In Date");
+        checkInDateLabel.setText("Check In Date");
 
-        jLabel9.setText("Address");
+        addressLabel.setText("Address");
 
-        jLabel12.setText("Mobile");
+        mobileLabel.setText("Mobile");
 
-        jLabel13.setText("Email");
+        emailLabel.setText("Email");
 
-        jLabel14.setText("Surname");
+        surNameLabel.setText("Surname");
 
-        jLabel10.setText("Post Code");
+        postCodeLabel.setText("Post Code");
 
-        jLabel5.setText("Gender");
+        genderLabel.setText("Gender");
 
-        jLabel15.setText("Room Type");
+        roomTypeLabel.setText("Room Type");
 
-        jLabel11.setText("Tax Paid");
+        taxPaidLabel.setText("Tax Paid");
 
-        jLabel16.setText("Sub Total");
+        subTotalLabel.setText("Sub Total");
 
-        jLabel17.setText("Total Cost");
+        totalCostLabel.setText("Total Cost");
 
         addPersonButton.setText("Add");
         addPersonButton.addActionListener(new java.awt.event.ActionListener() {
@@ -189,21 +204,21 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(postCodeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mobileLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(addressLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(firstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(surNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateOfBirthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(idTypeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(checkInDateLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkOutDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(roomTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nationalityLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nationalityField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,9 +241,9 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                                             .addComponent(addMealButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(removeMealButton)))
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel17))
+                                    .addComponent(taxPaidLabel)
+                                    .addComponent(subTotalLabel)
+                                    .addComponent(totalCostLabel))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(mealPriceField)
@@ -248,9 +263,9 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addMealButton, removeMealButton});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addressField, emailField, firstNameField, genderField, idTypeField, jLabel1, jLabel10, jLabel12, jLabel13, jLabel14, jLabel15, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel8, jLabel9, mobileField, nationalityField, postCodeField, roomNameComboBox, surNameField});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addressField, addressLabel, checkInDateLabel, checkOutDateLabel, dateOfBirthLabel, emailField, emailLabel, firstNameField, firstNameLabel, genderField, genderLabel, idTypeField, idTypeLabel, mobileField, mobileLabel, nationalityField, nationalityLabel, postCodeField, postCodeLabel, roomNameComboBox, roomTypeLabel, surNameField, surNameLabel});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel11, jLabel16, jLabel17});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {subTotalLabel, taxPaidLabel, totalCostLabel});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,27 +283,27 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
+                                    .addComponent(firstNameLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(surNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14))
+                                    .addComponent(surNameLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
+                                    .addComponent(addressLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
+                                    .addComponent(postCodeLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(mobileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12))
+                                    .addComponent(mobileLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13)))
+                                    .addComponent(emailLabel)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(mealNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,44 +314,44 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                                     .addComponent(removeMealButton))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
+                                    .addComponent(taxPaidLabel)
                                     .addComponent(taxPaidField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(subTotalField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel16))
+                                    .addComponent(subTotalLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel17)
+                                    .addComponent(totalCostLabel)
                                     .addComponent(totalCostField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nationalityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                            .addComponent(nationalityLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dateOfBirthChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(dateOfBirthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
+                            .addComponent(idTypeLabel)
                             .addComponent(idTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
+                            .addComponent(genderLabel)
                             .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(checkInDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(checkInDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(checkOutDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(roomNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))
+                            .addComponent(roomTypeLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addPersonButton)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -350,6 +365,9 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_printBillActionPerformed
 
     private void addPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonButtonActionPerformed
+        /**
+         * Add new customer to database
+         */
         firstName       = firstNameField.getText();
         surName         = surNameField.getText();
         address         = addressField.getText();
@@ -386,6 +404,9 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addPersonButtonActionPerformed
 
     private void addMealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMealButtonActionPerformed
+        /**
+         * Add requested meal by customer
+         */
         mealName    = mealNameCombobox.getSelectedItem().toString();       
         mealPrice   = Integer.parseInt(mealPriceField.getText());
         
@@ -402,6 +423,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
                 + ") values (("
                 + "select personid from hotel.person where firstname || surname = " 
                 + firstName.concat(surName) 
+                + "order by personid desc"
                 + "), ("
                 + "select mealid from hotel.meail where mealname = " 
                 + mealName 
@@ -410,6 +432,9 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addMealButtonActionPerformed
 
     private void mealNameComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mealNameComboboxActionPerformed
+        /**
+         * Set price for selected meal
+         */
         ResultSet mealTypeResultSet;
         String currentMeal  = mealNameCombobox.getSelectedItem().toString();
         sqlStatement        = "select price from hotel.meal where mealname = '" + currentMeal + "';";
@@ -422,6 +447,21 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_mealNameComboboxActionPerformed
+
+    private void removeMealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeMealButtonActionPerformed
+        /**
+         * Remove unwanted meal
+         */
+        mealName    = mealNameCombobox.getSelectedItem().toString();
+        mealPrice   = Integer.parseInt(mealPriceField.getText());  
+        if (totalCost <= 0) totalCost = totalCost - mealPrice;
+        totalCostField.setText(String.valueOf(totalCost));
+
+        sqlStatement = "delete from hotel.personmeal where mealid = "
+                + "(select mealid from hotel.meal where mealname = " 
+                + mealName;
+        executeSql(sqlStatement);        
+    }//GEN-LAST:event_removeMealButtonActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -452,44 +492,44 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     private javax.swing.JButton addMealButton;
     private javax.swing.JButton addPersonButton;
     private javax.swing.JTextField addressField;
+    private javax.swing.JLabel addressLabel;
     private datechooser.beans.DateChooserCombo checkInDateChooser;
+    private javax.swing.JLabel checkInDateLabel;
     private datechooser.beans.DateChooserCombo checkOutDateChooser;
+    private javax.swing.JLabel checkOutDateLabel;
     private datechooser.beans.DateChooserCombo dateOfBirthChooser;
+    private javax.swing.JLabel dateOfBirthLabel;
     private javax.swing.JTextField emailField;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField firstNameField;
+    private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField genderField;
+    private javax.swing.JLabel genderLabel;
     private javax.swing.JTextField idTypeField;
+    private javax.swing.JLabel idTypeLabel;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox mealNameCombobox;
     private javax.swing.JTextField mealPriceField;
     private javax.swing.JTextField mobileField;
+    private javax.swing.JLabel mobileLabel;
     private javax.swing.JTextField nationalityField;
+    private javax.swing.JLabel nationalityLabel;
     private javax.swing.JTextField postCodeField;
+    private javax.swing.JLabel postCodeLabel;
     private javax.swing.JButton printBill;
+    private javax.swing.JTextArea printBillArea;
     private javax.swing.JButton removeMealButton;
     private javax.swing.JComboBox roomNameComboBox;
+    private javax.swing.JLabel roomTypeLabel;
     private javax.swing.JTextField subTotalField;
+    private javax.swing.JLabel subTotalLabel;
     private javax.swing.JTextField surNameField;
+    private javax.swing.JLabel surNameLabel;
     private javax.swing.JTextField taxPaidField;
+    private javax.swing.JLabel taxPaidLabel;
     private javax.swing.JTextField totalCostField;
+    private javax.swing.JLabel totalCostLabel;
     // End of variables declaration//GEN-END:variables
 }

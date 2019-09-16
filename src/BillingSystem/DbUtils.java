@@ -40,6 +40,9 @@ public class DbUtils {
     }
     
     public ResultSet execute(String sql) {
+        /**
+         * Sql statement executor
+         */
         try {
             preparedStatement = conn.prepareStatement(sql);
             if(!sql.toLowerCase().startsWith("select")) {

@@ -43,24 +43,24 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel13" linkSize="3" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
-                              <Component id="jLabel10" linkSize="3" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
-                              <Component id="jLabel12" linkSize="3" alignment="1" min="-2" pref="73" max="-2" attributes="0"/>
-                              <Component id="jLabel9" linkSize="3" alignment="1" min="-2" pref="129" max="-2" attributes="0"/>
+                              <Component id="emailLabel" linkSize="3" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="postCodeLabel" linkSize="3" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
+                              <Component id="mobileLabel" linkSize="3" alignment="1" min="-2" pref="73" max="-2" attributes="0"/>
+                              <Component id="addressLabel" linkSize="3" alignment="1" min="-2" pref="129" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                              <Component id="jLabel14" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                              <Component id="jLabel4" linkSize="3" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
-                              <Component id="jLabel3" linkSize="3" alignment="1" min="-2" pref="66" max="-2" attributes="0"/>
+                              <Component id="firstNameLabel" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="surNameLabel" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="dateOfBirthLabel" linkSize="3" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
+                              <Component id="idTypeLabel" linkSize="3" alignment="1" min="-2" pref="66" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel5" linkSize="3" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="genderLabel" linkSize="3" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                              <Component id="jLabel8" linkSize="3" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
-                              <Component id="jLabel6" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                              <Component id="jLabel15" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="checkInDateLabel" linkSize="3" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
+                              <Component id="checkOutDateLabel" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="roomTypeLabel" linkSize="3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel2" linkSize="3" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="nationalityLabel" linkSize="3" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -87,9 +87,9 @@
                                           <Component id="removeMealButton" linkSize="2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jLabel11" linkSize="4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" linkSize="4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel17" linkSize="4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="taxPaidLabel" linkSize="4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="subTotalLabel" linkSize="4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="totalCostLabel" linkSize="4" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -132,32 +132,32 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="firstNameField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="firstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="surNameField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="surNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="addressField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addressLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="postCodeField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="postCodeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="mobileField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mobileLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="emailField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -172,17 +172,17 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="taxPaidLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="taxPaidField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="subTotalField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="subTotalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="totalCostLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="totalCostField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -190,37 +190,37 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="nationalityField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nationalityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="dateOfBirthChooser" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" max="32767" attributes="0"/>
+                          <Component id="dateOfBirthLabel" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="idTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="idTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="genderLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="genderField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="checkInDateChooser" pref="25" max="32767" attributes="0"/>
-                          <Component id="jLabel8" max="32767" attributes="0"/>
+                          <Component id="checkInDateLabel" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="checkOutDateChooser" pref="25" max="32767" attributes="0"/>
-                          <Component id="jLabel6" max="32767" attributes="0"/>
+                          <Component id="checkOutDateLabel" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="roomNameComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="roomTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="addPersonButton" min="-2" max="-2" attributes="0"/>
@@ -239,7 +239,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
+        <Component class="javax.swing.JTextArea" name="printBillArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -269,6 +269,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Remove"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeMealButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="mealNameCombobox">
       <Properties>
@@ -298,67 +301,67 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nationalityField">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="firstNameLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Firstname"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="nationalityLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nationality"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="idTypeLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="ID Type"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="dateOfBirthLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Date of Birth"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="checkOutDateLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Check Out Date"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
+    <Component class="javax.swing.JLabel" name="checkInDateLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Check In Date"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
+    <Component class="javax.swing.JLabel" name="addressLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Address"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel12">
+    <Component class="javax.swing.JLabel" name="mobileLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mobile"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel13">
+    <Component class="javax.swing.JLabel" name="emailLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel14">
+    <Component class="javax.swing.JLabel" name="surNameLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Surname"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel10">
+    <Component class="javax.swing.JLabel" name="postCodeLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Post Code"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="genderLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Gender"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel15">
+    <Component class="javax.swing.JLabel" name="roomTypeLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Room Type"/>
       </Properties>
@@ -376,17 +379,17 @@
     </Component>
     <Component class="javax.swing.JTextField" name="totalCostField">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel11">
+    <Component class="javax.swing.JLabel" name="taxPaidLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tax Paid"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel16">
+    <Component class="javax.swing.JLabel" name="subTotalLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sub Total"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel17">
+    <Component class="javax.swing.JLabel" name="totalCostLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Total Cost"/>
       </Properties>
