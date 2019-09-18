@@ -1,7 +1,9 @@
 package BillingSystem;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import javax.swing.JComboBox;
+import java.util.Calendar;
 
 public class BillingSystemUserInterface extends javax.swing.JFrame {
     private int mealPrice;
@@ -29,19 +31,19 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         initComboBoxesData();
     }
     
+    /**
+     * Call sql statements to initialize database values into ComboBoxes
+     */
     private void initComboBoxesData() {   
-        /**
-         * Call sql statements to initialize database values into ComboBoxes
-         */
         String[] sqlStatements = {"select roomname from hotel.room order by roomname asc", "select mealname from hotel.meal order by mealname asc"};         
         itemAddComboBox(sqlStatements[0], roomNameComboBox);
         itemAddComboBox(sqlStatements[1], mealNameCombobox);   
     }
-    
+
+    /**
+     * Add database values into ComboBoxes 
+     */
     private void itemAddComboBox(String sql, JComboBox comboBox) {
-        /**
-         * Add database values into ComboBoxes 
-         */
         ResultSet initResultSet;
         initResultSet = executeSql(sql);  
         try {
@@ -53,18 +55,19 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         }    
     }
     
+    /**
+     * Format DataComboBOx output to sql compatible date 
+     */    
     private String dateFormatter(String date) {
-        /**
-         * Format DataComboBOx output to sql compatible date 
-        */
+        
         String newDateFormat = date.replace(".", "-").substring(0, 10);
         return newDateFormat;
     }
     
+     /**
+      * Reduce unecessary object creation to execute Sql codes
+      */
     private ResultSet executeSql(String sql) {
-        /**
-         * Reduce unecessary object creation to execute Sql codes
-         */
         DbUtils dbUtils = new DbUtils();
         return dbUtils.execute(sql);
     }
@@ -76,7 +79,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
-        printBillArea = new javax.swing.JTextArea();
+        billArea = new javax.swing.JTextArea();
         printBill = new javax.swing.JButton();
         mealPriceField = new javax.swing.JTextField();
         addMealButton = new javax.swing.JButton();
@@ -124,9 +127,9 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        printBillArea.setColumns(20);
-        printBillArea.setRows(5);
-        jScrollPane1.setViewportView(printBillArea);
+        billArea.setColumns(20);
+        billArea.setRows(5);
+        jScrollPane1.setViewportView(billArea);
 
         printBill.setText("Print");
         printBill.addActionListener(new java.awt.event.ActionListener() {
@@ -361,13 +364,31 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void printBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBillActionPerformed
-        // TODO add your handling code here:
+        Calendar timer = Calendar.getInstance();
+        timer.getTime();
+        SimpleDateFormat tTime = new SimpleDateFormat("HH:mm:ss");
+        tTime.format(timer.getTime());
+        SimpleDateFormat tDate = new SimpleDateFormat("dd-MMM-yyyy");
+        tDate.format(timer.getTime());
+        
+        String outputBill="\tCustomer Billing System\n"
+                + "\n===========================================\t"
+                + "\n===========================================\t"
+                + "\nTax:\t\t\t"        + taxPaid
+                + "\nSub Total:\t\t\t"  + subTotal
+                + "\nTotal:\t\t\t"      + totalCost
+                + "\n===========================================\t"
+                + "\nCreation Date: "   + tDate.format(timer.getTime())
+                + "\nCreation Time: "   + tTime.format(timer.getTime())
+                + "\n\nThank you for choosing us!\n";
+        
+        billArea.append(outputBill);
     }//GEN-LAST:event_printBillActionPerformed
 
+    /**
+     * Add new customer to database
+     */
     private void addPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonButtonActionPerformed
-        /**
-         * Add new customer to database
-         */
         firstName       = firstNameField.getText();
         surName         = surNameField.getText();
         address         = addressField.getText();
@@ -383,30 +404,27 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         roomName        = roomNameComboBox.getSelectedItem().toString();
         
         sqlStatement = "insert into hotel.person("
-                + "firstname, surname, address, postcode, mobile, email, nationality, birthdate, idtype, gender, checkin, checkout, roomid"
-                + ") values('"
-                + firstName + "', '" 
-                + surName + "', '" 
-                + address + "', '"
-                + postCode + "', '"
-                + mobile + "', '"
-                + email + "', '"
-                + nationality + "', '"
-                + dateOfBirth + "', '"
-                + idType + "', '"
-                + gender + "', '"
-                + checkInDate + "', '"
-                + checkOutDate + "', ("
-                + "select roomid from hotel.room where roomname = '" 
-                + roomName 
-                + "'));";
+                        + "firstname, surname, address, postcode, mobile, email, nationality, birthdate, idtype, gender, checkin, checkout, roomid) values ('"
+                        + firstName     + "', '" 
+                        + surName       + "', '" 
+                        + address       + "', '"
+                        + postCode      + "', '"
+                        + mobile        + "', '"
+                        + email         + "', '"
+                        + nationality   + "', '"
+                        + dateOfBirth   + "', '"
+                        + idType        + "', '"
+                        + gender        + "', '"
+                        + checkInDate   + "', '"
+                        + checkOutDate  + "',"
+                        + "(select roomid from hotel.room where roomname = '" + roomName + "'));";
         executeSql(sqlStatement);
     }//GEN-LAST:event_addPersonButtonActionPerformed
 
+     /**
+      * Add requested meal by customer
+      */
     private void addMealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMealButtonActionPerformed
-        /**
-         * Add requested meal by customer
-         */
         mealName    = mealNameCombobox.getSelectedItem().toString();       
         mealPrice   = Integer.parseInt(mealPriceField.getText());
         
@@ -418,23 +436,16 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         subTotalField.setText(String.valueOf(subTotal));
         totalCostField.setText(String.valueOf(totalCost));
         
-        sqlStatement = "insert into hotel.personmeal("
-                + "personid, mealid"
-                + ") values (("
-                + "select personid from hotel.person where firstname || surname = " 
-                + firstName.concat(surName) 
-                + "order by personid desc"
-                + "), ("
-                + "select mealid from hotel.meail where mealname = " 
-                + mealName 
-                + "));";
+        sqlStatement = "insert into hotel.personmeal(personid, mealid) values ("
+                        + "(select personid from hotel.person where firstname || surname = "  + firstName.concat(surName) + " order by personid desc)"
+                        + ",(select mealid from hotel.meail where mealname = '"  + mealName + "'));";
         executeSql(sqlStatement);
     }//GEN-LAST:event_addMealButtonActionPerformed
 
+    /**
+     * Set price for selected meal
+     */
     private void mealNameComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mealNameComboboxActionPerformed
-        /**
-         * Set price for selected meal
-         */
         ResultSet mealTypeResultSet;
         String currentMeal  = mealNameCombobox.getSelectedItem().toString();
         sqlStatement        = "select price from hotel.meal where mealname = '" + currentMeal + "';";
@@ -448,18 +459,17 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mealNameComboboxActionPerformed
 
+    /**
+     * Remove unwanted meal
+     */
     private void removeMealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeMealButtonActionPerformed
-        /**
-         * Remove unwanted meal
-         */
         mealName    = mealNameCombobox.getSelectedItem().toString();
         mealPrice   = Integer.parseInt(mealPriceField.getText());  
         if (totalCost <= 0) totalCost = totalCost - mealPrice;
         totalCostField.setText(String.valueOf(totalCost));
 
         sqlStatement = "delete from hotel.personmeal where mealid = "
-                + "(select mealid from hotel.meal where mealname = " 
-                + mealName;
+                        + "(select mealid from hotel.meal where mealname = '"  + mealName + "');";
         executeSql(sqlStatement);        
     }//GEN-LAST:event_removeMealButtonActionPerformed
 
@@ -493,6 +503,7 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     private javax.swing.JButton addPersonButton;
     private javax.swing.JTextField addressField;
     private javax.swing.JLabel addressLabel;
+    private javax.swing.JTextArea billArea;
     private datechooser.beans.DateChooserCombo checkInDateChooser;
     private javax.swing.JLabel checkInDateLabel;
     private datechooser.beans.DateChooserCombo checkOutDateChooser;
@@ -519,7 +530,6 @@ public class BillingSystemUserInterface extends javax.swing.JFrame {
     private javax.swing.JTextField postCodeField;
     private javax.swing.JLabel postCodeLabel;
     private javax.swing.JButton printBill;
-    private javax.swing.JTextArea printBillArea;
     private javax.swing.JButton removeMealButton;
     private javax.swing.JComboBox roomNameComboBox;
     private javax.swing.JLabel roomTypeLabel;
